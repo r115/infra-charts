@@ -1,0 +1,47 @@
+on:
+  push:
+    branches:
+      - master
+    paths:
+      - 'utilities/**'
+      - '.github/workflows/deploy-core-cluster-dependencies.yaml'
+
+jobs:
+  utility_installation:
+    name: Deploy Kubernetes utilties
+    runs-on: ubuntu-latest
+    steps:
+    - name: Checkout Repository
+      uses: actions/checkout@v3
+
+    - name: Install doctl
+      uses: digitalocean/action-doctl@v2
+      with:
+        token: ${{ secrets.DIGITALOCEAN_ACCESS_TOKEN }}
+
+    - name: Save DigitalOcean kubeconfig with short-lived credentials
+      run: doctl kubernetes cluster kubeconfig save --expiry-seconds 600 ${{ secrets.DIGITALOCEAN_K8S_CLUSTER_ID }}
+
+    - name: Install Helm
+      uses: azure/setup-helm@v3
+
+    - name: Install ArgoCD
+      run: helm repo add argo https://argoproj.github.io/argo-helm && helm repo update && helm upgrade --install argocd argo/argo-cd --namespace argocd --create-namespace --set server.service.type=ClusterIP --set redis.enabled=true --set crds.keep=false --set server.extraArgs={--insecure}
+
+    - name: Install traefik
+      run: helm repo add traefik https://traefik.github.io/charts && helm repo update && helm upgrade --install traefik traefik/traefik --namespace traefik-v2 --create-namespace
+
+    # - name: Add repo secret for argocd
+    #   run: kubectl apply -f $GITHUB_WORKSPACE/src/utils/argocd/sealed_secret.yaml
+
+    # - name: Ingress config for argocd
+    #   run: kubectl apply -f $GITHUB_WORKSPACE/src/utils/argocd/ingress.yaml
+
+    - name: Install cert manager
+      run: helm repo add jetstack https://charts.jetstack.io && helm repo update && helm upgrade --install cert-manager jetstack/cert-manager --namespace cert-manager --create-namespace --version v1.12.2 --set installCRDs=true
+
+    # - name: LE Issuer
+    #   run: kubectl apply -f $GITHUB_WORKSPACE/src/utils/cert-manager/issuer.yaml
+
+    # - name: Add repo secret for postgres
+    #   run: kubectl apply -f $GITHUB_WORKSPACE/src/utils/postgres/tls.yaml && kubectl apply -f $GITHUB_WORKSPACE/src/utils/postgres/credentials.yaml
