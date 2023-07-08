@@ -38,8 +38,8 @@ jobs:
     - name: Add repo secret for argocd
       run: kubectl apply -f $GITHUB_WORKSPACE/utilities/argocd/secrets.github-repos.yaml
 
-    # - name: Ingress config for argocd
-    #   run: kubectl apply -f $GITHUB_WORKSPACE/src/utils/argocd/ingress.yaml
+    - name: Ingress config for argocd
+      run: kubectl apply -f $GITHUB_WORKSPACE/utilities/argocd/ingress.yaml
 
     - name: Install cert manager
       run: helm repo add jetstack https://charts.jetstack.io && helm repo update && helm upgrade --install cert-manager jetstack/cert-manager --namespace cert-manager --create-namespace --version v1.12.2 --set installCRDs=true
