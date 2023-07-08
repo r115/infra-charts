@@ -32,6 +32,9 @@ jobs:
     - name: Install traefik
       run: helm repo add traefik https://traefik.github.io/charts && helm repo update && helm upgrade --install traefik traefik/traefik --namespace traefik-v2 --create-namespace
 
+    - name: Install sealed secrets
+      run: helm repo add sealed-secrets https://bitnami-labs.github.io/sealed-secrets && helm repo update && helm upgrade --install sealed-secrets -n kube-system --set-string fullnameOverride=sealed-secrets-controller sealed-secrets/sealed-secrets
+
     # - name: Add repo secret for argocd
     #   run: kubectl apply -f $GITHUB_WORKSPACE/src/utils/argocd/sealed_secret.yaml
 
