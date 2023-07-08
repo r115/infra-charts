@@ -44,8 +44,8 @@ jobs:
     - name: Install cert manager
       run: helm repo add jetstack https://charts.jetstack.io && helm repo update && helm upgrade --install cert-manager jetstack/cert-manager --namespace cert-manager --create-namespace --version v1.12.2 --set installCRDs=true
 
-    # - name: LE Issuer
-    #   run: kubectl apply -f $GITHUB_WORKSPACE/src/utils/cert-manager/issuer.yaml
+    - name: LE Issuer
+      run: kubectl apply -f $GITHUB_WORKSPACE/utilities/cert-manager/issuer.yaml
 
     # - name: Add repo secret for postgres
     #   run: kubectl apply -f $GITHUB_WORKSPACE/src/utils/postgres/tls.yaml && kubectl apply -f $GITHUB_WORKSPACE/src/utils/postgres/credentials.yaml

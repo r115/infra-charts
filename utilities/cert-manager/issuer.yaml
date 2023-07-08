@@ -1,0 +1,32 @@
+apiVersion: bitnami.com/v1alpha1
+kind: SealedSecret
+metadata:
+  name: do-api-token-secret
+  namespace: cert-manager
+spec:
+  encryptedData:
+    access-token: AgAT2vYNssBkmFS42PCsaVrKzEkw3Cy6Q9AVO08WsfCUnrZglegIWQb0dPK9yf0AesqVoA5wO02Jn9YhllBlfi+rwNDrlauas0V50hjIooUwmg597nRDAr5I5V/opmsg9bJo9gG0Qx40fTiBBaeCk5wtrMi5I80y4DA6am5ziz9p91FHL6KuEueC0+r7MaURNblq8EzpWRLtHh+4irtOc4DgmrEaobtf06YKBv7QnBiaUQrJdwlbcVdnjv9jn4gO+a9gzIZf/QutHgVLDwNAyVihDCmidswvZgQ2dbyx38cWKIQtANgss6BbmFH+udDPtYOQwM2LBK4Ie80a9HrECSQH80PE0ROTldOA0qj2OeFtgrlSsFytCwjCkZjvw5ZLPr7yldbDz+luF84ynkJR82m1ZOO8vG0GTTA51ysh+uy/csvk4Oowiux7xP/zIkWdfcbCAp9El4XUHufc8rsoEU/Ug9V4qyZm1+8gBBdFy7bTXoVH/Gem/MJIoVZt8bf9sJq/Lryhru6tITJ/cRwCfQrf3pY3ef4yyiGHNoBSeEI6GIsOxRuQXM6+Fp3o6odawPrVzRMheBmnRyi4wav9LFxXp6rUEBI4Gg5p77cXIXZukXYN9Ffdluym9cRABE9WcNSFM6Qgs46u7v6DMzBXSvxylExC1cavxYXL9kpkas/AOljyzn9A9XRxAljKBHP6/bEg/pkK5n40tHzn0tgQTY55uQX3PxYwZIRPRU7sWLTH1eoDIGaY0pru/aNw924QJcrMXXawuqh37ca3jsBgTrQuDki9BxR+cw==
+  template:
+    metadata:
+      name: do-api-token-secret
+      namespace: cert-manager
+---
+apiVersion: cert-manager.io/v1
+kind: ClusterIssuer
+metadata:
+ name: letsencrypt-issuer
+ namespace: argocd
+spec:
+ acme:
+   email: services@carbonbits.co.ke
+   # We use the staging server here for testing to avoid hitting
+   server: https://acme-v02.api.letsencrypt.org/directory
+   privateKeySecretRef:
+     # if not existing, it will register a new account and stores it
+     name: letsencrypt-issuer-account-key
+   solvers:
+     - dns01:
+         digitalocean:
+           tokenSecretRef:
+             name: do-api-token-secret
+             key: access-token
