@@ -35,8 +35,8 @@ jobs:
     - name: Install sealed secrets
       run: helm repo add sealed-secrets https://bitnami-labs.github.io/sealed-secrets && helm repo update && helm upgrade --install sealed-secrets -n kube-system --set-string fullnameOverride=sealed-secrets-controller sealed-secrets/sealed-secrets
 
-    # - name: Add repo secret for argocd
-    #   run: kubectl apply -f $GITHUB_WORKSPACE/src/utils/argocd/sealed_secret.yaml
+    - name: Add repo secret for argocd
+      run: kubectl apply -f $GITHUB_WORKSPACE/utilities/argocd/secrets.github-repos.yaml
 
     # - name: Ingress config for argocd
     #   run: kubectl apply -f $GITHUB_WORKSPACE/src/utils/argocd/ingress.yaml
