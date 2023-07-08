@@ -2,6 +2,7 @@ on:
   push:
     branches:
       - master
+      - main
     paths:
       - '.github/workflows/deploy-core-cluster-dependencies.yaml'
       - 'utilities/**'
