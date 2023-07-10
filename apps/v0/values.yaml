@@ -2,5 +2,5 @@ spec:
   destination:
     server: https://kubernetes.default.svc
   source:
-    repoURL: git@github.com:technopriseglobal/charts
+    repoURL: git@github.com:carbonbits/infra-charts
     targetRevision: HEAD
