@@ -26,14 +26,14 @@ jobs:
     - name: Install Helm
       uses: azure/setup-helm@v3
 
-    - name: Install ArgoCD
-      run: helm repo add argo https://argoproj.github.io/argo-helm && helm repo update && helm upgrade --install argocd argo/argo-cd --namespace argocd --create-namespace --set server.service.type=ClusterIP --set redis.enabled=true --set crds.keep=false --set server.extraArgs={--insecure}
+    # - name: Install ArgoCD
+    #   run: helm repo add argo https://argoproj.github.io/argo-helm && helm repo update && helm upgrade --install argocd argo/argo-cd --namespace argocd --create-namespace --set server.service.type=ClusterIP --set redis.enabled=true --set crds.keep=false --set server.extraArgs={--insecure}
 
-    - name: Install traefik
-      run: helm repo add traefik https://traefik.github.io/charts && helm repo update && helm upgrade --install traefik traefik/traefik --namespace traefik-v2 --create-namespace --set providers.kubernetesIngress.publishedService.enabled=true
+    # - name: Install traefik
+    #   run: helm repo add traefik https://traefik.github.io/charts && helm repo update && helm upgrade --install traefik traefik/traefik --namespace traefik-v2 --create-namespace --set providers.kubernetesIngress.publishedService.enabled=true
 
-    - name: Install sealed secrets
-      run: helm repo add sealed-secrets https://bitnami-labs.github.io/sealed-secrets && helm repo update && helm upgrade --install sealed-secrets -n kube-system --set-string fullnameOverride=sealed-secrets-controller sealed-secrets/sealed-secrets
+    # - name: Install sealed secrets
+    #   run: helm repo add sealed-secrets https://bitnami-labs.github.io/sealed-secrets && helm repo update && helm upgrade --install sealed-secrets -n kube-system --set-string fullnameOverride=sealed-secrets-controller sealed-secrets/sealed-secrets
 
     - name: Add repo secret for argocd
       run: kubectl apply -f $GITHUB_WORKSPACE/utilities/argocd/secrets.github-repos.yaml
@@ -41,8 +41,8 @@ jobs:
     - name: Ingress config for argocd
       run: kubectl apply -f $GITHUB_WORKSPACE/utilities/argocd/ingress.yaml
 
-    - name: Install cert manager
-      run: helm repo add jetstack https://charts.jetstack.io && helm repo update && helm upgrade --install cert-manager jetstack/cert-manager --namespace cert-manager --create-namespace --version v1.12.2 --set installCRDs=true
+    # - name: Install cert manager
+    #   run: helm repo add jetstack https://charts.jetstack.io && helm repo update && helm upgrade --install cert-manager jetstack/cert-manager --namespace cert-manager --create-namespace --version v1.12.2 --set installCRDs=true
 
     - name: LE Issuer
       run: kubectl apply -f $GITHUB_WORKSPACE/utilities/cert-manager/issuer.yaml
