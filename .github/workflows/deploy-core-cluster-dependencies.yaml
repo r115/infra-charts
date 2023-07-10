@@ -47,5 +47,5 @@ jobs:
     - name: LE Issuer
       run: kubectl apply -f $GITHUB_WORKSPACE/utilities/cert-manager/issuer.yaml
 
-    # - name: Add repo secret for postgres
-    #   run: kubectl apply -f $GITHUB_WORKSPACE/src/utils/postgres/tls.yaml && kubectl apply -f $GITHUB_WORKSPACE/src/utils/postgres/credentials.yaml
+    - name: Add repo secret for postgres
+      run: kubectl apply -f $GITHUB_WORKSPACE/utilities/postgresql/tls.yaml && kubectl apply -f $GITHUB_WORKSPACE/utilities/postgresql/credentials.yaml
