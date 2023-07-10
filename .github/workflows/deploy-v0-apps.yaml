@@ -1,0 +1,29 @@
+on:
+  push:
+    branches:
+      - master
+      - main
+    paths:
+      - '.github/workflows/deploy-v0-apps.yaml'
+      - 'apps/v0/**'
+
+jobs:
+  deploy:
+    name: Deploy v0 apps
+    runs-on: ubuntu-latest
+    steps:
+    - name: Checkout Repository
+      uses: actions/checkout@v3
+    - name: Install doctl
+      uses: digitalocean/action-doctl@v2
+      with:
+        token: ${{ secrets.DIGITALOCEAN_ACCESS_TOKEN }}
+
+    - name: Save DigitalOcean kubeconfig with short-lived credentials
+      run: doctl kubernetes cluster kubeconfig save --expiry-seconds 600 ${{ secrets.DIGITALOCEAN_K8S_CLUSTER_ID }}
+
+    - name: Install Helm
+      uses: azure/setup-helm@v3
+
+    - name: Apply v0 apps
+      run: helm upgrade --install apps-v0 $GITHUB_WORKSPACE/apps/v0 --namespace argocd
