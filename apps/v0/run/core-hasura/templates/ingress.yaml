@@ -1,0 +1,26 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: core-hasura-ingress
+  namespace: argocd
+  annotations:
+    traefik.ingress.kubernetes.io/router.entrypoints: websecure
+    traefik.ingress.kubernetes.io/router.tls: "true"
+    cert-manager.io/cluster-issuer: letsencrypt-issuer
+spec:
+  ingressClassName: traefik
+  rules:
+    - host: core-hasura.r115.dev
+      http:
+        paths:
+          - path: /
+            pathType: Prefix
+            backend:
+              service:
+                name: core-hasura
+                port:
+                  number: 80
+  tls:
+    - secretName: core-hasura-service-cert
+      hosts:
+        - core-hasura.r115.dev
