@@ -15,4 +15,6 @@ spec:
     repoURL: {{ .Values.spec.source.repoURL }}
     targetRevision: HEAD
   syncPolicy:
-    automated: {}
+    automated: 
+      prune: true
+      selfHeal: true
