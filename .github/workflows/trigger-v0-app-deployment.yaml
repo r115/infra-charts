@@ -1,0 +1,11 @@
+on:
+  workflow_call:
+    
+jobs:
+  trigger_v0_app_deployment:
+    name: Trigger v0 app deployment
+    runs-on: ubuntu-latest
+    environment: production
+    steps:
+    - name: Check current repo
+      run: ls -al
