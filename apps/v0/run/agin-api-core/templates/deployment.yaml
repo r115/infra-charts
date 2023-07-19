@@ -30,9 +30,5 @@ spec:
           env:
           - name: APP_DATABASE
             value: {{ .Chart.Name }}
-            valueFrom:
-              secretKeyRef:
-                name: aws-credentials
-                key: access_key_secret
       imagePullSecrets:
         - name: dockerhub-carbonbits-credentials
