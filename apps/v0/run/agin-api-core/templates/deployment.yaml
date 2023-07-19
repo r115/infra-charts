@@ -1,18 +1,18 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  app: {{ .Chart.Name }}
+  name: {{ .Chart.Name }}
   namespace: {{ .Release.Namespace }}
 spec:
   revisionHistoryLimit: 5
   replicas: {{ .Values.autoscaling.minReplicas }}
   selector:
     matchLabels:
-      app: {{ .Chart.Name }}
+      app.kubernetes.io/name: {{ .Chart.Name }}
   template:
     metadata:
       labels:
-        app: {{ .Chart.Name }}
+        app.kubernetes.io/name: {{ .Chart.Name }}
     spec:
       containers:
         - name: {{ .Chart.Name }}
