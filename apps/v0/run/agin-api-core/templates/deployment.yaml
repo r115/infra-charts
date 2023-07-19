@@ -1,7 +1,7 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: {{ .Chart.Name }}-deployment
+  name: {{ .Chart.Name }}
   namespace: {{ .Release.Namespace }}
 spec:
   revisionHistoryLimit: 5
@@ -15,7 +15,7 @@ spec:
         app.kubernetes.io/name: {{ .Chart.Name }}
     spec:
       containers:
-        - name: {{ .Chart.Name }}-container
+        - name: {{ .Chart.Name }}
           image: {{ .Values.image.repository }}
           # resources:
           #   limits:
