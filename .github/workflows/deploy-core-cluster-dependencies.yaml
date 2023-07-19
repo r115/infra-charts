@@ -49,3 +49,6 @@ jobs:
 
     - name: Add repo secret for postgres
       run: kubectl apply -f $GITHUB_WORKSPACE/utilities/postgresql/tls.yaml && kubectl apply -f $GITHUB_WORKSPACE/utilities/postgresql/credentials.yaml
+
+    - name: Add dockerhub secrets for carbonbits
+      run: kubectl apply -f $GITHUB_WORKSPACE/utilities/dockerhub/carbonbits-credentials.yaml
