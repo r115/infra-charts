@@ -16,7 +16,7 @@ spec:
             pathType: Prefix
             backend:
               service:
-                name: {{ .Chart.Name }}-service
+                name: hello-world
                 port:
                   number: 80
   tls:
