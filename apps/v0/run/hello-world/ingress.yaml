@@ -4,11 +4,9 @@ metadata:
   name: hello-world-ingress
   namespace: argocd
   annotations:
-    traefik.ingress.kubernetes.io/router.entrypoints: websecure
-    traefik.ingress.kubernetes.io/router.tls: "true"
     cert-manager.io/cluster-issuer: letsencrypt-issuer
 spec:
-  ingressClassName: traefik
+  ingressClassName: contour
   rules:
     - host: dx.r115.dev
       http:
