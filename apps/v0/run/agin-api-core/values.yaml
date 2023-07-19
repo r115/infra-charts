@@ -8,7 +8,7 @@ image:
 
 ingress:
   host: api.agin.cloud
-  ingressClassName: traefik
+  ingressClassName: contour
 
 autoscaling:
   cpu: 0.25
