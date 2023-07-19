@@ -1,8 +1,14 @@
+namespace: argocd
+
 image:
   repository: carbonbits/agin-core:0.0.5
   pullPolicy: IfNotPresent
   # Overrides the image tag whose default is the chart appVersion.
   tag: 0.0.5
+
+ingress:
+  host: api.agin.cloud
+  ingressClassName: traefik
 
 autoscaling:
   cpu: 0.25
