@@ -1,42 +1,26 @@
-# apiVersion: networking.k8s.io/v1
-# kind: Ingress
-# metadata:
-#   name: {{ .Chart.Name }}-ingress
-#   namespace: argocd
-#   annotations:
-#     traefik.ingress.kubernetes.io/router.entrypoints: websecure
-#     traefik.ingress.kubernetes.io/router.tls: "true"
-#     cert-manager.io/cluster-issuer: letsencrypt-issuer
-# spec:
-#   ingressClassName: {{ .Values.ingress.ingressClassName }}
-#   rules:
-#     - host: {{ .Values.ingress.host }}
-#       http:
-#         paths:
-#           - path: /
-#             pathType: Prefix
-#             backend:
-#               service:
-#                 name: {{ .Chart.Name }}-service
-#                 port:
-#                   number: 80
-#   tls:
-#     - secretName: {{ .Chart.Name }}-service-cert
-#       hosts:
-#         - {{ .Values.ingress.host }}
-apiVersion: traefik.io/v1alpha1
-kind: IngressRoute
+apiVersion: networking.k8s.io/v1
+kind: Ingress
 metadata:
   name: {{ .Chart.Name }}-ingress
   namespace: argocd
+  annotations:
+    traefik.ingress.kubernetes.io/router.entrypoints: websecure
+    traefik.ingress.kubernetes.io/router.tls: "true"
+    cert-manager.io/cluster-issuer: letsencrypt-issuer
 spec:
-  entryPoints:
-    - websecure
-  routes:
-  - match: Host(`api.agin.cloud`)
-    kind: Rule
-    services:
-    - name: {{ .Chart.Name }}-service
-      port: 80
-  # tls:
-  #   certResolver: myresolver
+  ingressClassName: {{ .Values.ingress.ingressClassName }}
+  rules:
+    - host: {{ .Values.ingress.host }}
+      http:
+        paths:
+          - path: /
+            pathType: Prefix
+            backend:
+              service:
+                name: {{ .Chart.Name }}-service
+                port:
+                  number: 80
+  tls:
+    - secretName: {{ .Chart.Name }}-service-cert
+      hosts:
+        - {{ .Values.ingress.host }}
