@@ -11,5 +11,5 @@ spec:
     port: 80
     targetPort: 3000
   selector:
-    name: {{ .Chart.Name }}
+    app: {{ .Chart.Name }}
   type: ClusterIP
