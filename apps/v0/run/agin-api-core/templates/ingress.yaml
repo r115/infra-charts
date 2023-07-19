@@ -4,8 +4,7 @@ metadata:
   name: {{ .Chart.Name }}-ingress
   namespace: argocd
   annotations:
-    traefik.ingress.kubernetes.io/router.entrypoints: websecure
-    traefik.ingress.kubernetes.io/router.tls: "true"
+    ingress.kubernetes.io/ssl-redirect: "true"
     cert-manager.io/cluster-issuer: letsencrypt-issuer
 spec:
   ingressClassName: {{ .Values.ingress.ingressClassName }}
