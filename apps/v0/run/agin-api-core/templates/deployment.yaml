@@ -25,7 +25,8 @@ spec:
           #     memory: {{ .Values.autoscaling.memory }}
           ports:
             - name: http
-              containerPort: 80
+              containerPort: 3000
+              protocol: TCP
           imagePullPolicy: IfNotPresent
           env:
           - name: APP_DATABASE
