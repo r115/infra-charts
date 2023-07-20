@@ -1,0 +1,23 @@
+{
+  "name": "infra-charts",
+  "version": "1.0.0",
+  "description": "manage tons of applications with helm charts",
+  "main": "chart.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/carbonbits/infra-charts.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/carbonbits/infra-charts/issues"
+  },
+  "homepage": "https://github.com/carbonbits/infra-charts#readme",
+  "dependencies": {
+    "yaml": "^2.3.1"
+  }
+}
