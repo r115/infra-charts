@@ -16,7 +16,7 @@ spec:
     spec:
       containers:
         - name: {{ .Chart.Name }}
-          image: "{{ $.Values.image }}:{{ $.Chart.appVersion }}"
+          image: "{{ $.Values.image }}:{{ $.Chart.AppVersion }}"
           # resources:
           #   limits:
           #     cpu: {{ .Values.autoscaling.cpu }}
