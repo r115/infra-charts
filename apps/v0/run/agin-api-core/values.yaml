@@ -1,10 +1,8 @@
 namespace: argocd
 
 image:
-  repository: carbonbits/agin-core:0.0.6
+  repository: carbonbits/agin-core
   pullPolicy: IfNotPresent
-  # Overrides the image tag whose default is the chart appVersion.
-  tag: 0.0.5
 
 ingress:
   host: api.agin.cloud
