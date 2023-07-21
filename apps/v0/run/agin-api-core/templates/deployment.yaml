@@ -32,5 +32,7 @@ spec:
           env:
           - name: APP_DATABASE
             value: {{ .Chart.Name }}
+          - name: IMAGE_VERSION
+            value: {{ .Chart.AppVersion }}
       imagePullSecrets:
         - name: dockerhub-carbonbits-credentials
