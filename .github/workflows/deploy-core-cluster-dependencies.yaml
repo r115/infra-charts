@@ -52,3 +52,6 @@ jobs:
 
     - name: Add dockerhub secrets for carbonbits
       run: kubectl apply -f $GITHUB_WORKSPACE/utilities/dockerhub/carbonbits-credentials.yaml
+
+    - name: Cloudamqp secrets
+      run: kubectl apply -f $GITHUB_WORKSPACE/utilities/rabbitmq/cloudamqp.yaml

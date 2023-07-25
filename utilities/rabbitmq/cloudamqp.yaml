@@ -1,0 +1,16 @@
+apiVersion: bitnami.com/v1alpha1
+kind: SealedSecret
+metadata:
+  creationTimestamp: null
+  name: queue-credentials
+  namespace: argocd
+spec:
+  encryptedData:
+    cloudamqp_url: AgBiFAyaFAMTQP7YH7gIGKQd52n8HMk/WuOAq3lgDUs6XE+nMeTY772SQmTJTPNIL0AN7+UTON+tv5d4a7C2+P563j5E7KqoNQANyHz1EEK8OZmfw9IE0WB39Bc0gXF9BFTDCCkIHyPL9yuQPtWeh2MExGcsvbtmNB/qTNt3XWmOCk4B7/mJJ1SEoQE9KVHm23jmgjwMz4WI7QC3Iam3vBxxcMQeqgtlLQtf5/HLI37URTex9s41oejWVg/NCceGkgwEOlNyCHoPMLFpBYVEyqqg3rpzA2Po2x4yqV0MQlgLI8x7y93teYPipDE7S6BBjQiufQQdWl7C2lQls6Rb7CWxxPtAL9fSKDmfKTU+BydvWLiYfHiWwB0kBJI814mVj9zGGgMaUhuGR1Eg/fqfVwk3Mli8/D57/cGv3HxMej5jq1Eqzo3ZZBq7+AVUo5y0G8iBIV0ut66L0uxAuyOVVp1CzZlC9sOS+Mm8HLCdu2miH0zC7/ZFelN+Adc+j54m0aTcXDgqj3ZTML0M9vTYOChGYbI3TD1hkpbq2QC8iS+XlyZcGdNWwGyE6wy+hmQo+VGKqYWNR4bCe1VkmDbwRb04I9VSYGqWYZ3oLsHG1DbqZkfLb468XAAnwPqzfU+IKzCFLBEv31GTZHrngBqS4zWJd4nxrN5fwmV6W9/YjdY9QWIlHl348qJsow5w4E2tGQnxEuXtUU5WLb4MyV5t3SYEDUpq6Hfz3sdI9vf2YUNsKZspM92Vs3RpDiHVVlxiXyXxXk7ZUmL2PqFUydGiMiLFwZ1QAMO3MGgRZZhdqT424fbd
+  template:
+    metadata:
+      creationTimestamp: null
+      name: queue-credentials
+      namespace: argocd
+    type: Opaque
+
