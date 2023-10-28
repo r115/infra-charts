@@ -3,4 +3,4 @@ name: agin-api-core-v0
 description: Hasura instance to drive core cloud functionality
 type: application
 version: 0.1.0
-appVersion: 0.14.124
+appVersion: 0.14.125
