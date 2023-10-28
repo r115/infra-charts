@@ -1,0 +1,6 @@
+apiVersion: v2
+name: paylogic-core-v1
+description: .NET core for the payment services
+type: application
+version: 0.1.0
+appVersion: 0.1.0

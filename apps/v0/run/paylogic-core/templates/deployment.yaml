@@ -1,0 +1,63 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{ .Chart.Name }}
+  namespace: {{ .Release.Namespace }}
+spec:
+  revisionHistoryLimit: 5
+  replicas: {{ .Values.autoscaling.minReplicas }}
+  selector:
+    matchLabels:
+      app.kubernetes.io/name: {{ .Chart.Name }}
+  template:
+    metadata:
+      labels:
+        app.kubernetes.io/name: {{ .Chart.Name }}
+    spec:
+      containers:
+        - name: {{ .Chart.Name }}
+          image: "{{ $.Values.image.repository }}:{{ $.Chart.AppVersion }}"
+          # resources:
+          #   limits:
+          #     cpu: {{ .Values.autoscaling.cpu }}
+          #     memory: {{ .Values.autoscaling.memory }}
+          #   requests:
+          #     cpu: {{ .Values.autoscaling.cpu }}
+          #     memory: {{ .Values.autoscaling.memory }}
+          ports:
+            - name: http
+              containerPort: 3000
+              protocol: TCP
+          imagePullPolicy: IfNotPresent
+          env:
+          - name: APP_DATABASE
+            value: {{ .Chart.Name }}
+          - name: IMAGE_VERSION
+            value: {{ .Chart.AppVersion }}
+          - name: GRAPH_DATABASE_URL
+            valueFrom:
+              secretKeyRef:
+                name: agincloud-arangodb-credentials
+                key: url
+          - name: GRAPH_DATABASE_PASSWORD
+            valueFrom:
+              secretKeyRef:
+                name: agincloud-arangodb-credentials
+                key: password
+          - name: SUPABASE_URL
+            valueFrom:
+              secretKeyRef:
+                name: agin-credentials
+                key: supabase_url
+          - name: SUPABASE_ANON_KEY
+            valueFrom:
+              secretKeyRef:
+                name: agin-credentials
+                key: supabase_anon_key
+          - name: RABBITMQ_URL
+            valueFrom:
+              secretKeyRef:
+                name: queue-credentials
+                key: cloudamqp_url
+      imagePullSecrets:
+        - name: dockerhub-carbonbits-credentials
